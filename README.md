@@ -114,23 +114,20 @@ Now we have simplified the estimation problem with our assumption. We remind tha
 
 Given this hypothesis, we can adapt the global framework for the estimation problem. Considering the notations in $\textbf{\textit{Deng, H. and Han, J. (2014). Probabilistic models for clustering. Data Clustering, 1(0):61–82}}$ (which is part of the literature review I did last summer), we have in our case:
 
-$$
-\left\{
-    \begin{array}{ll}
-        \theta_k = \{\bm{\mu}_k, \Sigma_k\} = \{\mu_k \mathbf{e}, (\sigma_{k})^2 \mathbb{I}_d\} ~~ \forall k \in \{1, \hdots, K\}\\
+* $\theta_k$ = { $\mathbb{\mu_k}, \Sigma_k $} = {$\mu_k \mathbf{e}, (\sigma_{k})^2 \mathbb{I_d}$} $~~ \forall k \in ${$1$, ..., $K$}
         \\
         p(\mathbf{r}^{(i)} \lvert \theta_k) = \mathcal{N}_{d}(\mathbf{r}^{(i)} \lvert \mu_k \mathbf{e}, (\sigma_{k})^2 \mathbb{I}_d) \\
     \end{array}
 \right.
-$$
+\]
 
-where \(\mathbf{e} = [1, \hdots, 1]^T \in \mathbb{R}^d\) and \(\mu_k \in \mathbb{R}\).
+where $\mathbf{e} = \[1, ..., 1\]^T \in \mathbb{R}^d$ and $\mu_k \in \mathbb{R}$.
 
 We also have:
 
-\[
+$$
 p(\mathbf{r}^{(i)} \lvert \Psi) = \sum_{k=1}^K \pi_k \mathcal{N}_{d}(\mathbf{r}^{(i)} \lvert \mu_k \mathbf{e}, (\sigma_{k})^2 \mathbb{I}_d)
-\]
+$$
 
 hence the following log-likelihood:
 
