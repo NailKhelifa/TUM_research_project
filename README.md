@@ -114,62 +114,49 @@ Now we have simplified the estimation problem with our assumption. We remind tha
 
 Given this hypothesis, we can adapt the global framework for the estimation problem. Considering the notations in $\textbf{\textit{Deng, H. and Han, J. (2014). Probabilistic models for clustering. Data Clustering, 1(0):61–82}}$ (which is part of the literature review I did last summer), we have in our case:
 
-* $\theta_k$ = { $\mathbb{\mu_k}, \Sigma_k $} = {$\mu_k \mathbf{e}, (\sigma_{k})^2 \mathbb{I_d}$} $~~ \forall k \in ${$1$, ..., $K$}
-        \\
-        p(\mathbf{r}^{(i)} \lvert \theta_k) = \mathcal{N}_{d}(\mathbf{r}^{(i)} \lvert \mu_k \mathbf{e}, (\sigma_{k})^2 \mathbb{I}_d) \\
-    \end{array}
-\right.
-\]
+* $\theta_k$ = { $\mathbf{\mu_k}, \Sigma_k $} = { $\mu_k \mathbf{e}, (\sigma_{k})^2 \mathbb{I_d}$ } $~~ \forall k \in$ { $1$, ..., $K$ }
+* $p( \mathbf{r}^{(i)} | \theta_k )$ = $\mathcal{N}_d(\mathbf{r}^{(i)} | \mu_k \mathbf{e}, (\sigma_k)^2 \mathbb{I}_d$
 
 where $\mathbf{e} = \[1, ..., 1\]^T \in \mathbb{R}^d$ and $\mu_k \in \mathbb{R}$.
 
 We also have:
 
 $$
-p(\mathbf{r}^{(i)} \lvert \Psi) = \sum_{k=1}^K \pi_k \mathcal{N}_{d}(\mathbf{r}^{(i)} \lvert \mu_k \mathbf{e}, (\sigma_{k})^2 \mathbb{I}_d)
+p(\mathbf{r}^{(i)} | \Psi) = \sum_{k=1}^K \pi_k \mathcal{N}_d(\mathbf{r}^{(i)} | \mu_k \mathbf{e}, (\sigma_k)^2 \mathbb{I}_d)
 $$
 
 hence the following log-likelihood:
 
-\[
-\begin{equation}
-    \mathcal{L}(\chi \lvert \Psi) = \sum_{i=1}^n \log \sum_{k=1}^K \pi_k \mathcal{N}_{d}(\mathbf{r}^{(i)} \lvert \mu_k \mathbf{e}, (\sigma_{k})^2 \mathbb{I}_d)
-    \label{eq:likelihood}
-\end{equation}
-\]
+**(Likelihood)**
 
-Now we want to maximize this function. As said in the general setting, the optimal solution satisfies three equations that define the \(\gamma_k\)'s, \(\mu_k\)'s, and \(\pi_k\)'s. If we adapt them in our setting this gives:
+$$
+\mathcal{L}(\chi | \Psi) = \sum_{i=1}^n \log \sum_{k=1}^K \pi_k \mathcal{N}_d (\mathbf{r}^{(i)} | \mu_k \mathbf{e}, (\sigma_k)^2 \mathbb{I}_d)
+$$
 
-\[
-\begin{equation}
-\label{eq:system}
-\begin{cases}
-\begin{aligned}
-\mu_k &= \frac{\sum_{i=1}^{n} \gamma (z_{i,k})\mathbf{r}^{(i)}}{\sum_{n=1}^{n} \gamma (z_{i,k})} \\
-\Sigma_k &= \frac{\sum_{i=1}^{n} \gamma (z_{i,k}) (\mathbf{r}^{(i)} - \mu_k)(\mathbf{r}^{(i)} - \mu_k)^T}{\sum_{i=1}^{n} \gamma (z_{i,k})} \\
-\pi_k &= \frac{\sum_{i=1}^{n} \gamma (z_{i,k})}{n}
-\end{aligned}
-\end{cases}
-\end{equation}
-\]
+Now we want to maximize this function. As said in the general setting, the optimal solution satisfies three equations that define the $\gamma_k$'s, $\mu_k$'s, and $\pi_k$'s. If we adapt them in our setting this gives:
+
+**(system)**
+
+* $\mu_k = \frac{\sum_{i=1}^{n} \gamma (z_{i,k})\mathbf{r}^{(i)}}{\sum_{n=1}^{n} \gamma (z_{i,k})}$
+* $\Sigma_k = \frac{\sum_{i=1}^{n} \gamma (z_{i,k}) (\mathbf{r}^{(i)} - \mu_k)(\mathbf{r}^{(i)} - \mu_k)^T}{\sum_{i=1}^{n} \gamma (z_{i,k})} $
+* $\pi_k = \frac{\sum_{i=1}^{n} \gamma (z_{i,k})}{n}$
 
 where:
 
-\[
-\gamma(z_{i,k}) = \frac{\pi_k \mathcal{N}_{d}(\mathbf{r}^{(i)} \lvert \mu_k \mathbf{e}, (\sigma_k)^2\mathbb{I}_d)}{\sum_{j=1}^K \pi_j \mathcal{N}_{d}(\mathbf{r}^{(i)} \lvert \mu_j \mathbf{e}, (\sigma_j)^2\mathbb{I}_d)}
-\]
-The equations of \(\mu_k\), \(\Sigma_k\), and \(\pi_k\) are not the closed-form solution for the parameters of the mixture model. The reason is that these equations are intimately coupled with the equation of \(\gamma(z_{i,k})\). Therefore, maximizing the log likelihood function for a Gaussian mixture model turns out to be a very complex problem. A powerful method for finding maximum likelihood solutions for models with latent variables is called the **Expectation-Maximization algorithm**.
+**(responsibilities)**
+
+$\gamma( z_{i,k} )$ = $\frac{\pi_k \mathcal{N}_d(\mathbf{r}^{(i)} | \mu_k \mathbf{e}, (\sigma_k)^2\mathbb{I}_d)}{\sum_{j=1}^K \pi_j \mathcal{N}_d(\mathbf{r}^{(i)} | \mu_j \mathbf{e}, (\sigma_j)^2 \mathbb{I}_d)}$
+
+
+The equations of $\mu_k$, $\Sigma_k$, and $\pi_k$ are not the closed-form solution for the parameters of the mixture model. The reason is that these equations are intimately coupled with the equation of $\gamma(z_{i,k})$. Therefore, maximizing the log likelihood function for a Gaussian mixture model turns out to be a very complex problem. A powerful method for finding maximum likelihood solutions for models with latent variables is called the **Expectation-Maximization algorithm**.
 
 Here is the framework of the EM Algorithm:
 
-```markdown
-\begin{minipage}{\linewidth}
-    **Framework of the EM algorithm for GMM:**
-    1. **Initialization:** Initialize the means \(\mu_k^0\), covariances \(\Sigma_k^0\), and mixing probabilities \(\pi_k^0\).
-    2. **Expectation-step:** Calculate the responsibilities \(\gamma (z_{i,k})\) using the current parameters based on the expression in ~\eqref{responsibilities}.
-    3. **Maximization-step:** We use the expressions in ~\eqref{eq:system} to update the parameters using the current responsibilities. We *first* update the new means using, and *then* use these new values to calculate the covariances using, and *finally* re-estimate the mixing probabilities.
-    4. Compute the log-likelihood using ~\eqref{eq:likelihood} and check for convergence of the algorithm. If the convergence criterion is not satisfied, then repeat step 2-4, otherwise, return the final parameters.
-\end{minipage}
+**Framework of the EM algorithm for GMM:**
+1. **Initialization:** Initialize the means $\mu_k^0$, covariances $\Sigma_k^0$, and mixing probabilities $\pi_k^0$.
+2. **Expectation-step:** Calculate the responsibilities $\gamma (z_{i,k})$ using the current parameters based on the expression of the **(responsibilities)**.
+3. **Maximization-step:** We use the expressions in **(system)** to update the parameters using the current responsibilities. We *first* update the new means using, and *then* use these new values to calculate the covariances using, and *finally* re-estimate the mixing probabilities.
+4. Compute the log-likelihood using **(Likelihood)** and check for convergence of the algorithm. If the convergence criterion is not satisfied, then repeat step 2-4, otherwise, return the final parameters.
 
 
 ## Authors
