@@ -137,9 +137,9 @@ Now we want to maximize this function. As said in the general setting, the optim
 
 **(system)**
 
-* $\mu_k = \frac{\sum_{i=1}^{n} \gamma (z_{i,k})\mathbf{r}^{(i)}}{\sum_{n=1}^{n} \gamma (z_{i,k})}$
-* $\Sigma_k = \frac{\sum_{i=1}^{n} \gamma (z_{i,k}) (\mathbf{r}^{(i)} - \mu_k)(\mathbf{r}^{(i)} - \mu_k)^T}{\sum_{i=1}^{n} \gamma (z_{i,k})} $
-* $\pi_k = \frac{\sum_{i=1}^{n} \gamma (z_{i,k})}{n}$
+* $\mu_k = \frac{\sum_{}^{} \gamma (z_{i,k})\mathbf{r}^{(i)}}{\sum_{}^{} \gamma (z_{i,k})}$
+* $\Sigma_k = \frac{\sum_{}^{} \gamma (z_{i,k}) (\mathbf{r}^{(i)} - \mu_k)(\mathbf{r}^{(i)} - \mu_k)^T}{\sum_{}^{} \gamma (z_{i,k})} $
+* $\pi_k = \frac{\sum_{}^{} \gamma (z_{i,k})}{n}$
 
 where:
 
