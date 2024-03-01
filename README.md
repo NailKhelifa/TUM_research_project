@@ -57,18 +57,18 @@ Our aim is to identify groups of similar returns through clustering, grouping as
 
 ## Assumption
 
-We consider $d, n \in \mathbb{N}$ and a set of observations $\chi = \{\mathbf{r}^{(1)}, ..., \mathbf{r}^{(n)}\}$ with $\mathbf{r}^{(i)} \in \mathbb{R}^d$ for each $i \in \{1, ..., n\}$, where $n$ represents the number of assets, $d$ the number of days, and $r^{(i)}_j$ the return of the $i$-th asset on day $j$ for $i \in \{1, ..., n\}$ and $j \in \{1, ..., d\}$. 
+We consider $d, n \in \mathbb{N}$ and a set of observations $\chi = \{\mathbf{r}^{(1)}, ..., \mathbf{r}^{(n)}\}$ with $\mathbf{r}^{(i)} \in \mathbb{R}^d$ for each $i \in$ { $1$, ..., $n$ }, where $n$ represents the number of assets, $d$ the number of days, and $r^{(i)}_j$ the return of the $i$-th asset on day $j$ for $i \in$ { $1$, ..., $n$ } and $j \in$ { $1$, ..., $d$ }. 
 
-In this approach, more than assuming that each new asset is a cluster, we assume that it is a probability distribution whose parameters we have to estimate. Let $K \in \mathbb{N}$ be the number of clusters (or components). That means we want to build a smaller portfolio composed of $K$ new assets. It stands to reason to use, in this case, Gaussian components, that is, to suppose that each cluster is a probability distribution that follows a $d$-multivariate Gaussian distribution. We denote $\mathcal{N}_d(\mu_1, \Sigma_1), ..., \mathcal{N}_d(\mu_K, \Sigma_K)$ these distributions with $\mu_k \in \mathbb{R}^d$ and $\Sigma_k \in \mathbb{R}^d$ for each $k \in \{1, ..., K\}$.
+In this approach, more than assuming that each new asset is a cluster, we assume that it is a probability distribution whose parameters we have to estimate. Let $K \in \mathbb{N}$ be the number of clusters (or components). That means we want to build a smaller portfolio composed of $K$ new assets. It stands to reason to use, in this case, Gaussian components, that is, to suppose that each cluster is a probability distribution that follows a $d$-multivariate Gaussian distribution. We denote $\mathcal{N}_d(\mu_1, \Sigma_1), ..., \mathcal{N}_d(\mu_K, \Sigma_K)$ these distributions with $\mu_k \in \mathbb{R}^d$ and $\Sigma_k \in \mathbb{R}^d$ for each $k \in$ { $1$, ..., $K$ }.
 
-In our model, we do not consider that all data are generated from a single multidimensional law, but rather that they are taken out of a mixture of them. Therefore, we introduce the mixing probabilities $\pi_1, ..., \pi_K$ (that verify $\sum_k \pi_k = 1$ and $\pi_k > 0$ for each $k \in \{1, ..., K\}$) of each one of the components. In other words, $\pi_k$ corresponds to the probability of drawing the observations from the $k$-th component, i.e., from $\mathcal{N}_d(\mu_k, \Sigma_k)$.
+In our model, we do not consider that all data are generated from a single multidimensional law, but rather that they are taken out of a mixture of them. Therefore, we introduce the mixing probabilities $\pi_1, ..., \pi_K$ (that verify $\sum_k \pi_k = 1$ and $\pi_k > 0$ for each $k \in$ { $1$, ..., $K$ }) of each one of the components. In other words, $\pi_k$ corresponds to the probability of drawing the observations from the $k$-th component, i.e., from $\mathcal{N}_d(\mu_k, \Sigma_k)$.
 
 After detailing our assumption that the data are distributed according to a Gaussian Mixture Model (GMM), there remains the problem of estimating the parameters. This is where a real problem arises.
 
 In this setting, we denote $\Psi = \{\theta_1, ..., \theta_K, \pi_1, ..., \pi_K\}$ as the set of parameters to estimate for this model, where:
 
-- For each $k \in \{1, ..., K\}$, $\theta_k = (\mu_k, \Sigma_k)$ is the set of parameters that determine the $k$-th Gaussian component $\mathcal{N}(\mu_k, \Sigma_k)$.
-- $\pi_1, ..., \pi_K$ are the mixing probabilities corresponding to the GMM (thus $\sum_k \pi_k = 1$ and $\pi_k > 0$ for each $k \in \{1, ..., K\}$).
+- For each $k \in$ { $1$, ..., $K$ }, $\theta_k = (\mu_k, \Sigma_k)$ is the set of parameters that determine the $k$-th Gaussian component $\mathcal{N}(\mu_k, \Sigma_k)$.
+- $\pi_1, ..., \pi_K$ are the mixing probabilities corresponding to the GMM (thus $\sum_k \pi_k = 1$ and $\pi_k > 0$ for each $k \in$ { $1$, ..., $K$ }).
 
 We consider a component $\mathcal{N}_d(\mu_k, \Sigma_k)$. In this case, the parameters to estimate are $\mu_k \in \mathbb{R}^d$ and $\Sigma_k \in \mathbb{R}^{d \times d}$. This means we have $d + \frac{d(d+1)}{2}$ parameters to estimate, in other words, a total of $K(d + \frac{d(d+1)}{2})$ parameters to estimate for the whole model.
 
@@ -82,12 +82,15 @@ We thus have to reduce the number of parameters to estimate. To do so, we don't 
 
 In finance it is a common assumption to assume that returns of the **same** asset are uncorrelated and normally centred around a similar mean.
 
-In our setting, this is tantamount to assume that the $K$ Gaussian regimes we introduced have the following form $\mathcal{N}_d(\mu_1, (\sigma_1)^2 \mathbb{I}_d), ..., \mathcal{N}_d(\mu_K, (\sigma_K)^2 \mathbb{I}_d)$ with $\mu_k \in \mathbb{R}$, $\sigma_k \in \mathbb{R}^{+*}$ for each $k \in \begin{Bmatrix} 1, ..., K \end{Bmatrix}$ and $\mathbb{I}_d \in \mathbb{R}^{d \times d}$ denotes the identity matrix. In other words, this means that for each asset $r^{(i)}$, there exist a component in our mixture model whose label is denoted $k_{(i)}$ such that the daily returns we observe are centred around a similar mean value $\mu_{k_{(i)}}$ and deviate from this mean with a standard-deviation of $\sigma_{k_{(i)}}$.
+In our setting, this is tantamount to assume that the $K$ Gaussian regimes we introduced have the following form $\mathcal{N}_d(\mu_1, (\sigma_1)^2 \mathbb{I}_d)$, ..., $\mathcal{N}_d(\mu_K, (\sigma_K)^2 \mathbb{I}_d)$ with $\mu_k \in \mathbb{R}$, $\sigma_k \in \mathbb{R}^{+*}$ for each $k \in$ { $1$, ..., $K$ } and $\mathbb{I}_d
+\in \mathbb{R}^{d \times d}$ denotes the identity matrix. 
+
+In other words, this means that for each asset $r^{(i)}$, there exists a component in our mixture model whose label is denoted $k_{(i)}$ such that the daily returns we observe are centered around a similar mean value $\mu_{k_{i}}$ and deviate from this mean with a standard-deviation of $\sigma_{k_{i}}$.
 
 In mathematical terms, this can be written as:
 
 $$
-    \forall i \in \begin{Bmatrix} 1, ..., n \end{Bmatrix}, \exists k^{(i)} \in \begin{Bmatrix} 1, ..., K \end{Bmatrix}, r^{(i)} \sim \mathcal{N}_d(\mu_{k^{(i)}}, (\sigma_{k^{(i)}})^2 \mathbb{I}_d)
+\forall i = 1, ..., n, ~~~~ \exists k^{(i)} = \{1, ..., K \}, ~~~~ r^{(i)} \sim \mathcal{N}_d(\mu_k^{(i)}, (\sigma_k^{(i)})^2 \mathbb{I}_d)
 $$
 
 This precisely corresponds to the setting of a Gaussian mixture model. We still denote $\pi_1, ..., \pi_K$ the mixing probabilities of this mixture.
@@ -95,20 +98,21 @@ This precisely corresponds to the setting of a Gaussian mixture model. We still 
 We resume this hypothesis by the following notations:
 
 $$
-    \forall i \in \begin{Bmatrix} 1, ..., n \end{Bmatrix}, r^{(i)} \sim \sum_{k=1}^K \pi_k \mathcal{N}_d(\mu_{k}, (\sigma_{k})^2 \mathbb{I}_d)
+\forall i = 1, ..., n, ~~~~ r^{i)} \sim \sum_{k=1}^K \pi_k \mathcal{N}_d (\mu_k^{(i)}, (\sigma_k^{(i)})^2 \mathbb{I}_d)
 $$
+
 
 Three remarks about this hypothesis:
 
-- We have drastically reduced the number of parameters to estimate to \(3K\) parameters.
-- This easier setting should not hide a fundamental issue which is that of finding the right \(K\).
+- We have drastically reduced the number of parameters to estimate to $3K$ parameters.
+- This easier setting should not hide a fundamental issue which is that of finding the right $K$.
 - We have to estimate the mixing probabilities
 
 Now we have simplified the estimation problem with our assumption. We remind that the idea of using Gaussian mixture models for clustering comes from a lack of control and visibility over the cluster. We believe this method will enable us to better understand the clustering stability issue.
 
 ## The estimation problem due to our assumption 
 
-Given this hypothesis, we can adapt the global framework for the estimation problem. Considering the notations in \textit{Deng, H. and Han, J. (2014). Probabilistic models for clustering. Data Clustering, 1(0):61–82} (which is part of the literature review I did last summer), we have in our case:
+Given this hypothesis, we can adapt the global framework for the estimation problem. Considering the notations in $\textbf{\textit{Deng, H. and Han, J. (2014). Probabilistic models for clustering. Data Clustering, 1(0):61–82}}$ (which is part of the literature review I did last summer), we have in our case:
 
 $$
 \left\{
