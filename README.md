@@ -6,7 +6,7 @@
 </p>
 
 <p align="center">
-  <strong>Portfolio Optimization Using Clustering - Mixture Model.</strong>
+  <strong>Methods of Stable Time Series Clustering - Mixture Model.</strong>
 </p>
 
 <p align="center">
@@ -28,7 +28,7 @@
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 ## Table of Contents
 
-- [Introduction](#introduction)
+- [Introduction - Context](#introduction)
 - [Assumption](#assumption)
 - [Authors](#authors)
 - [Licence](#license)
@@ -36,7 +36,7 @@
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-## Introduction
+## Introduction - Context
 
 In Markowitz's Mean Variance Theory, investors focus on the mean and variance of portfolio returns. Portfolio optimization, known as **Mean-Variance Optimization (MVO)**, seeks to maximize returns while limiting variance. The optimization problem is expressed as:
 
